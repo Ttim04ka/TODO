@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import styles from '../../../styles/Main/main.module.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeValueCreator, createTaskCreator, setFlagForSelectedDate } from '../../../reducers/plained-reducer';
+import { changeValueCreator, createTaskCreator, setFlagForSelectedDate,correctStyle, setWindow } from '../../../reducers/plained-reducer';
 import 'react-calendar/dist/Calendar.css';
 import Task from './Task';
 import '../../../App.css'
 import classNames from 'classnames';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -49,6 +50,7 @@ let Plained=React.memo((props)=>{
 
     let selectData=(e)=>{
         let dropBtn=document.getElementById('dropdown-basic-button');
+        dispatch(correctStyle(false))
         dropBtn.innerHTML=e.substr(1);
         if(e==="#Сегодня"){
             dispatch(setFlagForSelectedDate("#Сегодня"))
@@ -60,6 +62,19 @@ let Plained=React.memo((props)=>{
         };
     };
 
+
+    /// обновление компоненты при смене url
+    let location=useLocation();
+    const [sportKeyLocation, setSportKeyLocation] = useState(location.pathname);
+    useEffect(() => { 
+            dispatch(correctStyle(false))
+            dispatch(setWindow(false))
+      }, [sportKeyLocation]);
+    
+    useEffect(() => { 
+    setSportKeyLocation(location.pathname)
+    }, [location.pathname]);
+    //конец
    
     let newKey=(e)=>{
         

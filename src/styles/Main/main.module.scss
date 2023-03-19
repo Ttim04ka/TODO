@@ -240,17 +240,18 @@ body {
 .line{
 overflow: hidden;
 word-wrap: break-word;
- border:3px solid rgb(17, 132, 132);
- padding-left: 40px;
+border:3px solid rgb(17, 132, 132);
+padding-left: 40px;
 min-height: 44px;
- width: 350px;
- position: relative;
- padding-top: 5px;
- padding-bottom: 5px;
- font-size: 1.2em;
- font-weight: 600;
- user-select: none;
- &::before {
+max-height: 100px;
+width: 350px;
+position: relative;
+padding-top: 5px;
+padding-bottom: 5px;
+font-size: 1.2em;
+font-weight: 600;
+user-select: none;
+&::before {
   position: absolute;
   left: 65px;
   content: attr(data-content);
@@ -266,58 +267,57 @@ min-height: 44px;
   text-decoration: line-through;
 }
 
-
+.open_calendar{
+  margin-bottom: 20px;
+}
+.calendar_btn{
+  margin-left: 20px;
+  margin-right: 20px;
+}
 span.calendar{
   cursor:pointer;
   padding-top: 10px;
   padding-bottom: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  color: black;
   &:hover {
-    color: rgb(168, 66, 66);
+    color: rgb(79, 76, 76);
   }
 }
 
 .repeatData{
   display: flex;
-  margin-left: 10px;
+  margin-left: 0px;
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
 .repeat_item{
   padding: 10px;
-  margin-right: 8px;
-  border:2px solid blue;
+  margin-right: 9px;
+  border:3px solid  rgb(10, 10, 10);
   color: black;
   font-weight: bold;
+  background: white;
   &:hover{
     transform: scale(1.1);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.repeated_btn{
+  margin-left: 110px;
+}
+.note_textarea{
+  border: 2px solid black;
+  max-width: 350px;
+  max-height: 200px;
+  min-height: 50px;
+}
 
 .appear_btns{
   z-index: 100000;
   display: flex;
   justify-content: space-around;
   position: relative;
-  top: 206px;
+  top: 196px;
 }

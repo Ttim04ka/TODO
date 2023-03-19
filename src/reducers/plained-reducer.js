@@ -4,7 +4,7 @@ let initialState={
   hasNote:[{task:'',note:''}],//заметки
   tasks:[],//активные задачи
   completedTasks:[],//завершенные задачи
-  setWindow:[{task:'',set:false}],//открытие-закрытие окна настроек задачи
+  setWindow:[{task:'',set:false,page:null}],//открытие-закрытие окна настроек задачи
   line:false,//перечеркнутая линия при завешении задачи
   isCalendar:false,//открыти-закрытие календаря
   date:[{task:'',date:''}],//дата выбранная в календаре
@@ -41,7 +41,7 @@ const plainedReducer=(state=initialState, action)=>{
           }
         });
         state.repeate.forEach((item,i,arr)=>{
-          if(item.task===action.def){
+          if(item?.task===action.def){
             arr[i].task=action.add;
           }
         });
@@ -94,11 +94,12 @@ const plainedReducer=(state=initialState, action)=>{
             };
             if(element.task===action.task){
               element.set=action.show;
-              flagForSetWindow=true
+              element.page=action.page;
+              flagForSetWindow=true;
             };
           });
           if(!flagForSetWindow){
-            state.setWindow.push({task:action.task,set:action.show})
+            state.setWindow.push({task:action.task,set:action.show,page:action.page})
           };
         return {...state,setWindow:[...state.setWindow]};
       case 'CHANGE_LINE':
@@ -202,9 +203,9 @@ export const moveToActiveTasksAgain=(name)=>{
       type:'MOVE_TO_ACTIVE_TASK',name
   }
 };
-export const setWindow=(task,show)=>{
+export const setWindow=(task,show,page)=>{
   return {
-      type:'SET_WINDOW',task,show
+      type:'SET_WINDOW',task,show,page
   }
 };
 export const changeLine=(line)=>{

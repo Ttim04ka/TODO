@@ -11,7 +11,7 @@ import classNames from 'classnames';
 
 const Task=React.memo((props)=>{ 
     let dispatch=useDispatch();
-    let show=useSelector(store=>store.plainedReducer.setWindow)?.filter(item=>item?.task===props.task)[0]; // показать расширенное окно задач
+    let show=useSelector(store=>store.plainedReducer.setWindow)?.filter(item=>item?.task===props.task && item.page==='/plained')[0]; // показать расширенное окно задач
     let data=useSelector(store=>store.plainedReducer.date)?.filter(item=>item.task===props.task)[0]?.date?.split(',')[0];//дата,выбранная в календаре
     let dataFlag=useSelector(store=>store.plainedReducer.date)?.filter(item=>item.task===props.task)[0]?.task;//флаг для высвечивания иконки календаря
     let repeate=useSelector(store=>store.plainedReducer.repeate)?.filter(item=>item?.task===props.task)[0]?.task;// флаг для высвечивания иконки повтора
@@ -39,7 +39,7 @@ const Task=React.memo((props)=>{
         else{
             addTofinished(nameComletedTask);
             dispatch(changeLine(true));
-            dispatch(setWindow(props.task,false));
+            dispatch(setWindow(props.task,false,'/plained'));
             dispatch(correctStyle(false));
         }
           
@@ -47,7 +47,7 @@ const Task=React.memo((props)=>{
     }
 
     let appearSettings=(e)=>{//открыти окна настроек задачи по клику на нее
-        dispatch(setWindow(e.currentTarget.id,true));
+        dispatch(setWindow(e.currentTarget.id,true,'/plained'));
         dispatch(correctStyle(true));
         
     };
@@ -62,6 +62,7 @@ const Task=React.memo((props)=>{
             document.querySelector('#inputValue').style.width="60%";
         };
     });
+    
  
     return(
         <div>
@@ -71,7 +72,7 @@ const Task=React.memo((props)=>{
                         <input type="checkbox" id="todo"  onChange={checkedTask} checked={props.check} name={props.task} className={styles.task_input}/>
                         <label className={task_label}  onClick={appearSettings} data-content={props.task}  id={props.task}>
                             <div >{props.task}</div>
-                            {!(show?.set)  && 
+                            {!(correct)  && 
                                 <div className={styles.icons}>
                                     <img className={dataFlag===props.task ? styles.iconActive : styles.icon} id='calendar' src="https://cdn.icon-icons.com/icons2/620/PNG/512/calendar-with-a-clock-time-tools_icon-icons.com_56831.png" alt=""/>
                                     <img className={repeate===props.task ? styles.iconActive : styles.icon} id='repeate' src="https://cdn.icon-icons.com/icons2/620/PNG/512/calendar-with-a-clock-time-tools_icon-icons.com_56831.png" alt="" />

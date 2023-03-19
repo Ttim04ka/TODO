@@ -11,7 +11,7 @@ import Start from "./components/Main/DefaultView/StartView";
 
 
 function App(props) {
-//  дата + repeate
+//доп листы
 let navigate=useNavigate();
 document.addEventListener('keydown',(e)=>{
   let a=false;
