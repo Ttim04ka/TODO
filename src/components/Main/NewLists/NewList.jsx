@@ -1,15 +1,15 @@
-import React from 'react';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Main/main.module.scss';
+import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { deleteListCreator, setFlagForSelectedDateForAdd, setTasks } from '../../../reducers/nav-reducer';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Accordion from 'react-bootstrap/Accordion';
 import TaskForAdd from './TaskForAdd';
+import classNames from 'classnames';
+import { correctStyle } from '../../../reducers/plained-reducer';
 
 
 
@@ -19,19 +19,25 @@ const NewList=React.memo((props)=>{
 
     let navigation=useNavigate();
     let dispatch=useDispatch();
+    let completedTasks;
     let data=useSelector(store=>store.navReducer.date)?.filter(item=>(item.list===props.id));
     let flag=useSelector(store=>store.navReducer.flagForSelectedDateFordd)?.filter(item=>(item.list===props.id))[0]?.str;
     let currentTasks;
+    let inputFormBeauty=classNames(styles.btn,styles.btn__primary,styles.btn__inside,styles.uppercase)//класс для инпута ввода задач  
+    
+    
     let viewTasks=(item)=>{
         return currentTasks=item.tasks.map((items,i)=><TaskForAdd task={items} nameList={item.list} key={Math.random()} check={false} line={false} flag={flag ?? ''}></TaskForAdd>)
     }
+    
+    
     useSelector(store=>store.navReducer.newLists).forEach((item,i,array)=>{
         if(item.list===props.id){
             viewTasks(item)
         }
     });
 
-    let completedTasks;
+
     let viewCompletedTasks=(item)=>{
         return completedTasks=item.tasks.map(elem=><TaskForAdd task={elem.current} nameList={item.list} key={Math.random()} check={true} line={true} flag={''}></TaskForAdd>)
     }
@@ -72,7 +78,19 @@ const NewList=React.memo((props)=>{
         };
     };
 
-    let NewKeyForAdd= (e)=>{
+     /// обновление компоненты при смене url
+     let location=useLocation();
+     const [sportKeyLocation, setSportKeyLocation] = useState(location.pathname);
+     useEffect(() => { 
+             dispatch(correctStyle(false))
+       }, [sportKeyLocation]);
+     
+     useEffect(() => { 
+     setSportKeyLocation(location.pathname)
+     }, [location.pathname]);
+     //конец
+
+    let newKeyForAdd= (e)=>{
         if(e.keyCode === 13){
             createNewTask();
             
@@ -81,15 +99,20 @@ const NewList=React.memo((props)=>{
     
   
     return (
-        <div className='keepLeftForAdd'>
-             <div className={styles.selectDataTask}>
-                <DropdownButton id="dropdown-basic-button" title="Выбрать период" onSelect={selectDataForAdd}>
-                    <Dropdown.Item href="#Сегодня">Сегодня</Dropdown.Item>
-                    <Dropdown.Item href="#Завтра">Завтра</Dropdown.Item>
-                    <Dropdown.Item href="#Весь">Весь</Dropdown.Item>
-                </DropdownButton>
-            </div>
-            <div>{currentTasks}</div>
+        <div className='keepLeft'>
+                <div className={styles.selectDataTask}>
+                    <DropdownButton id="dropdown-basic-button" title="Выбрать период" onSelect={selectDataForAdd} variant='secondary'>
+                        <Dropdown.Item href="#Сегодня">Сегодня</Dropdown.Item>
+                        <Dropdown.Item href="#Завтра">Завтра</Dropdown.Item>
+                        <Dropdown.Item href="#Весь">Весь</Dropdown.Item>
+                    </DropdownButton>
+                    <div className={styles.deleteList}>
+                        <Button variant="danger" onClick={deleteList}>Удалить список</Button>{' '}
+                        
+                    </div>
+                </div>
+                
+            <div className={styles.mainTasks}>{currentTasks}</div>
             <div>
                 <Accordion>
                     <Accordion.Item eventKey="0">
@@ -101,7 +124,7 @@ const NewList=React.memo((props)=>{
                 </Accordion>
             </div>
             
-           <div className={styles.createTask}>
+           {/* <div className={styles.createTask}>
                 <InputGroup className='abc' >
                         <Form.Control
                             placeholder="Название задачи"
@@ -115,6 +138,19 @@ const NewList=React.memo((props)=>{
                         </Button>
                         <Button variant="outline-danger" onClick={deleteList}>Удалить список</Button>{' '}
                     </InputGroup>
+            </div> */}
+
+            
+             <div className={styles.createTask}> 
+                <div className={styles.createTask_container}>
+                        <div className={styles.container__item}>
+                            <form className={styles.createTask_form}>
+                                <input type="text"  className={styles.createTask_form__field} maxLength="70"  placeholder="Название задачи"  id='inputValueNewList'  onKeyDown={newKeyForAdd} />
+                                <button type="button" className={inputFormBeauty} onClick={createNewTask} >Создать </button>
+        
+                            </form>
+                        </div>
+                </div>
             </div>
             
         </div>

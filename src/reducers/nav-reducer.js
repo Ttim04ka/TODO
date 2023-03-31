@@ -8,6 +8,7 @@ let initialState={
   isCalendarForAdd:[{list:'',task:'',check:false}],//открытие-закрытие календаря в окне настроек задач
   flagForSelectedDateFordd:[{list:'',str:''}],//фильтрация по промежутку времени
   repeateForAdd:[{list:'',task:'',days:[]}]//выбор дней для повтора задачи
+  
 };
 const  navReducer=(state=initialState, action)=>{
     switch (action.type) {

@@ -27,8 +27,10 @@ body {
 }
 
 .selectDataTask{
+  display: flex;
   margin-top: 20px;
   margin-bottom: 40px;
+  justify-content: space-between;
 }
 
 .mainTasks{
@@ -46,11 +48,12 @@ body {
 
 .createTask_container {
 	height: 100%;
-  width: 100%;
+  width: 100vw;
 }
 
 //** form
 .createTask_form {	
+  display: flex;
 	&__field {
 		width: 95%;;
 		background: #fff;
@@ -80,14 +83,16 @@ body {
 	padding: 0;
 	transition: all 200ms ease-in;
 	cursor: pointer;
+  height: 52px;
+	margin-top: 7px;
+  width: 150px;
   
-	
 	&__primary {
 		background: $button-bg-color;
 		color: $button-text-color;
 		box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
 		border-radius: 2px;
-		padding: 12px 36px;
+    
 		
 		&:hover {
 			background: darken($button-bg-color, 4%);
@@ -100,7 +105,8 @@ body {
 	}
 	
 	&__inside {
-		margin-left: -96px;
+		margin-left: -10%;
+   
 	}
 }
 /// end input form
@@ -321,3 +327,4 @@ span.calendar{
   position: relative;
   top: 196px;
 }
+

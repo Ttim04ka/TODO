@@ -27,16 +27,14 @@ const AppearWindow=React.memo((props)=>{
     let line=props.line;//перечеркивающая линия
     let textarea_text_style=classNames(line ? styles.line: styles.appear_input_block_input);//применение нескольких классов к textarea
     let location=useLocation();
+
+    
     let options = {
         year: 'numeric',
         month: 'numeric',
         day: 'numeric',
         timezone: 'UTC'
     }; // изменяет дату в нужный формат
-
-
- 
- 
 
 
     (function changeCheckedInput(){
@@ -117,7 +115,6 @@ const AppearWindow=React.memo((props)=>{
     };
 
     let chooseRepeated=(e)=>{
-
         if(e.currentTarget?.style.backgroundColor=='#6c757d'){
             e.currentTarget.style.backgroundColor='white';
         }else{

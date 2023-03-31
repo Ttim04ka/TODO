@@ -30,23 +30,21 @@ let NavBar=React.memo((props)=>{
     };
 
     let addNewList=(e)=>{
-        e.preventDefault()
         let name= modalInput.value;
         if(name!==(null || '')){
             let path=`/${name}`
             navigate(path)
             dispatch(setListName(name));
-            modalWindow.hidden=true;
-            modalCover.hidden=true;
             modalInput.value='';
             
-        }else if(name===null || name===''){
+        }else if(name===null ){
             navigate('/plained')
-            modalWindow.hidden=true;
-            modalCover.hidden=true;
             modalInput.value='';
+        }else if(name===''){
+            navigate('/plained')
         };
-        return; 
+        modalWindow.hidden=true;
+        modalCover.hidden=true;
     }
 
     let createNewList=()=>{
@@ -71,7 +69,7 @@ let NavBar=React.memo((props)=>{
                     <NavLink to='/myday' className={style.nav_links}>Мой день</NavLink>
                 </div>
                 <div className={style.item}>
-                    <NavLink to='/plained' className={style.nav_links}>Запланированно</NavLink>
+                    <NavLink to='/plained' className={style.nav_links}>Запланировано</NavLink>
                 </div>
                 {listName}
            </div>

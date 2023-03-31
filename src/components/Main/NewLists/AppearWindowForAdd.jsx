@@ -1,7 +1,5 @@
 import React from 'react';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import styles from '../../../styles/Main/main.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -9,6 +7,9 @@ import { useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { changeTaskTextForAdd, hasNoteForAdd, moveIntoCompletedTasks, moveToActiveTasksAgainInAddingList, setWindowforAdd,deleteTaskFromAddingList, setDataForAdd, isCalendarForAdd, chooseRepeateForAdd } from '../../../reducers/nav-reducer';
+import classNames from 'classnames';
+import { correctStyle } from '../../../reducers/plained-reducer';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -22,8 +23,8 @@ const AppearWindowForAdd=React.memo((props)=>{
     let data=useSelector(store=>store.navReducer.date)?.filter(item=>(item?.task===props.task && item.list===props.list))[0]?.date; // выбранная в календаре дата
     let [currentDataForAdd,setCurrentDataForAdd]=useState(data); // отпраляет корректную дату в redux
     let repeateDays=useSelector(store=>store.navReducer.repeateForAdd)?.filter(item=>(item?.task===props.task && item?.list===props.list))[0]?.days;//задачи для фильтрации повтора
+    let textarea_text_style=classNames(props.lineAdd  ? styles.line: styles.appear_input_block_input);//применение нескольких классов к textarea
     
-   
     let options = {
         year: 'numeric',
         month: 'numeric',
@@ -46,10 +47,11 @@ const AppearWindowForAdd=React.memo((props)=>{
 
 
     let deleteTaskForAdd=(e)=>{
-        document.querySelector('.keepLeftForAdd').style.width="100%";
-        document.querySelector('.abc').style.width="100%";
+        document.querySelector('.keepLeft').style.width="100%"
+        document.querySelector('#inputValueNewList').style.width="95%"
         dispatch(setWindowforAdd(props.list,props.task,false));
         dispatch(deleteTaskFromAddingList(props.list,e.currentTarget.id));
+        dispatch(correctStyle(false))
     };
 
     let changeTaskTextForAdding=(e)=>{
@@ -65,13 +67,14 @@ const AppearWindowForAdd=React.memo((props)=>{
         else{
             dispatch(setWindowforAdd(props.list,nameComletedTask.name,false))
             dispatch(moveIntoCompletedTasks(props.list,nameComletedTask.name));
+            dispatch(correctStyle(false))
         };
     };
 
     let closeWindowForAdd=()=>{
-        document.querySelector('.keepLeftForAdd').style.width="100%"
-        document.querySelector('.abc').style.width="100%"
+        document.querySelector('#inputValueNewList').style.width="95%"
         dispatch(setWindowforAdd(props.list,props.task,false));
+        dispatch(correctStyle(false))
     };
 
     let addNoteForAdd=(e)=>{
@@ -104,18 +107,18 @@ const AppearWindowForAdd=React.memo((props)=>{
     };
 
     let chooseRepeated=(e)=>{
-        if(e.currentTarget?.style.backgroundColor=='blue'){
+        if(e.currentTarget?.style.backgroundColor=='rgb(108, 117, 125)'){
             e.currentTarget.style.backgroundColor='white';
         }else{
   
-            e.currentTarget.style.backgroundColor='blue';
+            e.currentTarget.style.backgroundColor='#6c757d';
         };
     };
 
     let saveRepeated=()=>{
         let arr=[];
         document.querySelectorAll(`#B${props.task}Btn`).forEach(item=>{
-            if(item.style.backgroundColor==='blue'){
+            if(item.style.backgroundColor==='rgb(108, 117, 125)'){
                 arr.push(item.name)
             }
         });
@@ -126,7 +129,7 @@ const AppearWindowForAdd=React.memo((props)=>{
         document.querySelectorAll(`#B${props.task}Btn`).forEach(item=>{
             repeateDays?.forEach(elem=>{
                 if(item.name===elem){
-                    item.style.backgroundColor='blue'
+                    item.style.backgroundColor='#6c757d'
                 }
             });
         });
@@ -140,15 +143,13 @@ const AppearWindowForAdd=React.memo((props)=>{
 
     return(
 
-        <div className={styles.menu_mobile}>
-            <div className={styles.input}> 
-                <InputGroup className="mb-3">
-                <InputGroup.Checkbox  aria-label="Checkbox for following text input" onChange={changeCheck} checked={props.check} name={props.task}   />
-                <Form.Control aria-label="Text input with checkbox" defaultValue={props.task} onBlur={changeTaskTextForAdding} className={line ? styles.lineThrought : styles.mainComponent} />
-                </InputGroup>  
+        <div className={styles.menu_settings}>
+            <div className={styles.appear_input_block}> 
+                <input type="checkbox"  onChange={changeCheck} checked={props.check} className={styles.appear_input_block_checkbox}  />
+                <textarea type="text" data-content={props.task}  defaultValue={props.task} name={props.task.toString()}  onBlur={changeTaskTextForAdding} className={textarea_text_style} maxLength="70" rows="1"/>
             </div>
             <hr />
-            {isCalendar ?  <div className={styles.calendar}><Calendar onChange={onChange} value={value} onClickDay={getDataForAdd} ></Calendar> <Button variant="outline-success" onClick={saveDataForAdd}>Сохранить</Button>{''} <Button variant="outline-danger" onClick={hideCalendarForAdd}>Закрыть выбор даты</Button>{''} </div> : <span className={styles.calendar} onClick={setCalc}>{(data==='' || data===undefined) ? "Выбрать дату" : data }</span>}
+            {isCalendar ?  <div className={styles.calendar}><Calendar className={styles.open_calendar}  onChange={onChange} value={value} onClickDay={getDataForAdd} ></Calendar> <Button className={styles.calendar_btn} variant="outline-success" onClick={saveDataForAdd}>Сохранить</Button>{''} <Button variant="outline-danger" onClick={hideCalendarForAdd}>Закрыть выбор даты</Button>{''} </div> : <span className={styles.calendar} onClick={setCalc}>{(data==='' || data===undefined) ? "Выбрать дату" : data }</span>}
             <hr />
             <div >
                     <span className={styles.calendar}>Повтор</span>
@@ -162,15 +163,15 @@ const AppearWindowForAdd=React.memo((props)=>{
                             <button className={styles.repeat_item} id={`B${props.task}Btn`} onClick={chooseRepeated} name='Sunday'>вс</button>
                     </div>
 
-                    <Button variant="outline-success" id={props.task}  onClick={saveRepeated}>Сохранить</Button>{''} 
+                    <Button variant="outline-secondary" id={props.task} className={styles.repeated_btn}  onClick={saveRepeated}>Сохранить</Button>{''} 
                 </div>
             <hr />
             <div>
-                    <textarea name="" id="" cols="47" rows="2" placeholder='Оставить заметку' defaultValue={note ?? ''} onBlur={addNoteForAdd} ></textarea>
+                    <textarea className={styles.note_textarea}  name="" id="" cols="47" rows="2" placeholder='Оставить заметку' defaultValue={note ?? ''} onBlur={addNoteForAdd} ></textarea>
             </div>
-            <div> 
-                    <Button variant="outline-danger" id={props.task}  onClick={closeWindowForAdd}>Закрыть</Button>{''} 
-                    <Button variant="outline-danger" id={props.task}  onClick={deleteTaskForAdd}>Удалить</Button>{''} 
+            <div className={styles.appear_btns}> 
+                    <Button variant="outline-danger" id={props.task}  onClick={closeWindowForAdd}>Закрыть задачу</Button>{''} 
+                    <Button variant="outline-danger" id={props.task}  onClick={deleteTaskForAdd}>Удалить задачу</Button>{''} 
             </div>
            
         </div>

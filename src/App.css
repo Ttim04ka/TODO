@@ -43,10 +43,11 @@
 .App-content{
   display: flex;
 }
+
 .rightSideContent{
   position: relative;
-  width: 1000px;
-  height: 100hv;
+  width: 67vw;
+  height: 100vh;
  
 }
 .keepLeft{
@@ -113,6 +114,8 @@
   transform-origin: left;
   transform: scaleX(1);
 }
+
+
 
 
 

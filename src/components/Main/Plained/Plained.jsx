@@ -20,31 +20,24 @@ let Plained=React.memo((props)=>{
     let flag=useSelector(store=>store.plainedReducer.flagForSelectedDate);// флаг для фильтрации задач по конкретному участку времени
     let inputFormBeauty=classNames(styles.btn,styles.btn__primary,styles.btn__inside,styles.uppercase)//класс для инпута ввода задач  
 
+   
     
     let tasks=useSelector(store=>store.plainedReducer.tasks).map(item=>
         <Task task={item} key={Math.random()} check={false} line={false} flag={flag}></Task>
     );
-
- 
 
     let completedTasks=useSelector(store=>store.plainedReducer.completedTasks.map(item=>
         <Task task={item.current} key={Math.random()} check={true} line={true} flag={''} ></Task>
     ));
 
     
-    
-    
-    function changeValue(e){
+    let changeValue=(e)=>{
         dispatch(changeValueCreator(e.currentTarget.value));
     }
 
-    function createTask(){
+    let createTask=()=>{
         let taskName=document.getElementById('inputValue').value;
-        if(taskName!==''){
-            dispatch(createTaskCreator(taskName));
-        }else{
-            alert('Введите название задачи')
-        };  
+        taskName!=='' ?  dispatch(createTaskCreator(taskName)) : alert('Введите название задачи')
     };
 
 
@@ -77,7 +70,6 @@ let Plained=React.memo((props)=>{
     //конец
    
     let newKey=(e)=>{
-        
         if(e.keyCode === 13){
             e.preventDefault();
             createTask();
