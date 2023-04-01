@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TO DO
 ## Used technologies:
 ### -React JS
@@ -20,6 +21,8 @@ Let choose data in calendar .\
 Set some svg when you add data,note or repeate .\
 Sort tasks in the order they were added .\
 
+=======
+>>>>>>> 0880cc08a9f3ac9a6de89ac8a2dba52dfba6df03
 
 # Getting Started with Create React App
 
