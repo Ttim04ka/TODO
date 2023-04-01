@@ -99,9 +99,9 @@ const AppearWindowForAdd=React.memo((props)=>{
             dispatch(setDataForAdd(props.list,props.task,`${currentDataForAdd.toLocaleString("ru", options)},${currentDataForAdd.toLocaleString("ru", {weekday:"long" })}`));
         };
 
-        if(String(currentDataForAdd.toLocaleString("ru", options)).split(',')[0]!==new Date().toLocaleString("ru", options)){
+       /*  if(String(currentDataForAdd.toLocaleString("ru", options)).split(',')[0]!==new Date().toLocaleString("ru", options)){
             dispatch(setWindowforAdd(props.list,props.task,false));
-        };
+        }; */
        
         dispatch(isCalendarForAdd(props.list,props.task,false))  ;
     };
@@ -135,11 +135,11 @@ const AppearWindowForAdd=React.memo((props)=>{
         });
     });  
 
-    document.addEventListener('keydown',(e)=>{
+    /* document.addEventListener('keydown',(e)=>{
         if(e.keyCode === 27){
            closeWindowForAdd();
         } 
-    });//закрытие окна настроек по ESC
+    });//закрытие окна настроек по ESC */
 
     return(
 

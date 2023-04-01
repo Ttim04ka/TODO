@@ -14,7 +14,6 @@ function App(props) {
 //media
   let navigate=useNavigate();
   document.addEventListener('keydown',(e)=>{
-    let a=false;
     if(e.keyCode === 27){
         navigate('/default')
     } 

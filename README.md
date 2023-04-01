@@ -1,3 +1,26 @@
+# TO DO
+## Used technologies:
+### -React JS
+### -Redux
+### -Scss
+### -Bootstrap
+
+## What's this application for and what does this one can do?
+It will help you to allocate your time and organize your day
+You can add some task in your list.
+![alt text](/src/styles/img/1.PNG)
+Also add new list for other different tasks.
+![alt text](/src/styles/img/2.PNG)
+This app let you change some conditions of task (for instance,data or repeate or note)
+![alt text](/src/styles/img/3.PNG)
+
+And a little bit about some functions in this app:.\
+Let filter our tasks by intervals.\
+Let choose data in calendar .\
+Set some svg when you add data,note or repeate .\
+Sort tasks in the order they were added .\
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
