@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # TO DO
 ## Used technologies:
 ### -React JS
@@ -7,22 +7,26 @@
 ### -Bootstrap
 
 ## What's this application for and what does this one can do?
-It will help you to allocate your time and organize your day
-You can add some task in your list.
+**It will help you to allocate your time and organize your day**
+***
+**You can add some task in your list**
+***
 ![alt text](/src/styles/img/1.PNG)
-Also add new list for other different tasks.
+***
+**Also add new list for other different tasks**
+***
 ![alt text](/src/styles/img/2.PNG)
-This app let you change some conditions of task (for instance,data or repeate or note)
+***
+**This app let you change some conditions of task (for instance,data or repeate or note)**
+***
 ![alt text](/src/styles/img/3.PNG)
+***
+### And a little bit about some functions in this app: 
+-Let filter our tasks by intervals.\
+-Let choose data in calendar .\
+-Set some svg when you add data,note or repeate .\
+-Sort tasks in the order they were added 
 
-And a little bit about some functions in this app:.\
-Let filter our tasks by intervals.\
-Let choose data in calendar .\
-Set some svg when you add data,note or repeate .\
-Sort tasks in the order they were added .\
-
-=======
->>>>>>> 0880cc08a9f3ac9a6de89ac8a2dba52dfba6df03
 
 # Getting Started with Create React App
 
