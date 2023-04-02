@@ -22,7 +22,8 @@
 ![alt text](/src/styles/img/3.PNG)
 ***
 ### And a little bit about some functions in this app: 
--Let filter our tasks by intervals.\
+-Let change your tasks' names.\
+-Let filter your tasks by intervals.\
 -Let choose data in calendar .\
 -Set some svg when you add data,note or repeate .\
 -Sort tasks in the order they were added 
