@@ -65,10 +65,10 @@ const AppearWindowForAdd=React.memo((props)=>{
             dispatch(moveToActiveTasksAgainInAddingList(props.list,nameComletedTask.name));
         }
         else{
-            dispatch(setWindowforAdd(props.list,nameComletedTask.name,false))
             dispatch(moveIntoCompletedTasks(props.list,nameComletedTask.name));
-            dispatch(correctStyle(false))
         };
+        dispatch(setWindowforAdd(props.list,nameComletedTask.name,false))
+        dispatch(correctStyle(false))
     };
 
     let closeWindowForAdd=()=>{

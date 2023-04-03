@@ -73,10 +73,10 @@ const AppearWindow=React.memo((props)=>{
         if(props.check){
             dispatch(moveToActiveTasksAgain(nameComletedTask.name));
         }else{
-            dispatch(setWindow(props.task,true,location.pathname));
-            dispatch(correctStyle(false))
             dispatch(moveToCompletedTask(nameComletedTask.name))  
         }; 
+        dispatch(setWindow(props.task,false,location.pathname));
+        dispatch(correctStyle(false))
     };
 
     let closeWindow=()=>{
