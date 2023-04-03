@@ -58,7 +58,7 @@ const plainedReducer=(state=initialState, action)=>{
         state.completedTasks.forEach((item,i,arr)=>{
           if(item.current===action.name){
               state.completedTasks.splice(i,1);
-              let flag;
+              let move_to_active_flag;
               state.tasks.some((element,index,mass)=>{
                 if(element===item.previous){
                   if(mass.length>1){
@@ -68,18 +68,18 @@ const plainedReducer=(state=initialState, action)=>{
                   }else{
                     mass.push(action.name);
                   }
-                  flag=true;
-                  return flag;
+                  move_to_active_flag=true;
+                  return move_to_active_flag;
                 }
-                flag=false;
-                return flag
+                move_to_active_flag=false;
+                return move_to_active_flag;
               });
 
               if(state.tasks.length===0){
-                flag=false;
+                move_to_active_flag=false;
               };
 
-              if(flag===false){
+              if(move_to_active_flag===false){
                 state.tasks.unshift(action.name)    
               };
               
@@ -105,7 +105,7 @@ const plainedReducer=(state=initialState, action)=>{
       case 'CHANGE_LINE':
         return {...state,line:action.line};
       case 'HAS_NOTE':
-        let flag=false;
+        let note_flag=false;
         state.hasNote.forEach((item,i,arr)=>{
           if(item?.task===action.task){
             item.task=action.task;
@@ -113,8 +113,7 @@ const plainedReducer=(state=initialState, action)=>{
             if(action.note===''){
               delete arr[i]
             }
-            
-            flag=true
+            note_flag=true
           };
         });
 
@@ -132,7 +131,6 @@ const plainedReducer=(state=initialState, action)=>{
           item.date=action.date;
         };
        });
-
        if(!date_flag){
           state.date.push({task:action.task,date:action.date})
        };

@@ -61,14 +61,14 @@ const  navReducer=(state=initialState, action)=>{
                 array[ind-1]?previousTask=array[ind-1]:previousTask=null
               }
             });
-            let flag;
+            let move_to_competed_flag;
             state.completedTasks.forEach((elem,index,arr)=>{
               if(elem.list===action.listName){
                 elem.tasks.push({current:action.task,previous:previousTask})
-                return flag=true;
-              }else{return flag=false;}});
+                return move_to_competed_flag=true;
+              }else{return move_to_competed_flag=false;}});
 
-            if(flag===false){
+            if(move_to_competed_flag===false){
               state.completedTasks.push({list:action.listName,tasks:[{current:action.task,previous:previousTask}]});
             }  ;
             item.tasks.length>1 ? item.tasks=item.tasks.filter(item=>item!==action.task) : item.tasks.splice(0,1)
@@ -87,7 +87,7 @@ const  navReducer=(state=initialState, action)=>{
               });
           };
         });
-        let _flag;
+        let move_to_active_flag;
         let notFoundPrevCount=1;
         state.newLists.forEach((item,i,arr)=>{
           if(item.list===action.listName){
@@ -111,12 +111,12 @@ const  navReducer=(state=initialState, action)=>{
             if(item.tasks.length===0){
               item.tasks.push(action.task)
             };
-            return _flag=true;
+            return move_to_active_flag=true;
           }else{
-            return _flag=false;
+            return move_to_active_flag=false;
           }
         });
-        if(_flag===false){
+        if(move_to_active_flag===false){
           state.newLists.unshift({list:action.listName,tasks:[action.task]})
         };
         return {...state,newLists:[...state.newLists],completedTasks:[...state.completedTasks]}
